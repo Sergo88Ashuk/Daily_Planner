@@ -45,6 +45,7 @@ class TheCalendar(tk.Toplevel):
         # Создаем пустые кнопки под дни месяца и записываем в список days
         for row in range(2, 8):
             for col in range(7):
+                # Начинаются проблемы
                 self.but = tk.Button(self, text='0', width=4, height=2, activebackground='#555555',
                                  font=('Verdana', 16, 'bold'), command=lambda : show_my_notes(self.get_btn_txt(self.but)))
                 self.but.grid(row=row, column=col, sticky='nsew')
@@ -81,6 +82,7 @@ class TheCalendar(tk.Toplevel):
             self.days[self.week_day + self.month_days + n]['fg'] = 'gray'
             self.days[self.week_day + self.month_days + n]['background'] = '#f3f3f3'
 
+    # Устанавливаем новые значения месяца
     def prev_month(self):
         self.month -= 1
         if self.month == 0:
@@ -88,6 +90,7 @@ class TheCalendar(tk.Toplevel):
             self.year -= 1
         self.fill()
 
+    # Устанавливаем новые значения месяца
     def next_month(self):
         self.month += 1
         if self.month == 13:
@@ -95,11 +98,13 @@ class TheCalendar(tk.Toplevel):
             self.year += 1
         self.fill()
 
+    # Понадобится для передачи своей геометрии
     def get_root_position(self):
         self.update_idletasks()
         self.width, self.height, self.x, self.y = re.split(r'[x+]', self.geometry())
         return self.width, self.height, self.x, self.y
 
+    # Извлекаем текст с числом месяца из кнопки
     def get_btn_txt(self, but):
         button_text = but['text']
         print(button_text)
@@ -126,6 +131,8 @@ def show_calendar(coordinates):
 
 
 
+
+# Вариант реализации без класса
 
 
 # def show_calendar():
