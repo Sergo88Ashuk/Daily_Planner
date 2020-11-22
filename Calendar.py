@@ -3,6 +3,7 @@
 import tkinter as tk
 from Notes_widget import show_notes_widget
 from Display_notes import show_my_notes
+from functools import partial
 import re
 import calendar
 import datetime
@@ -46,11 +47,13 @@ class TheCalendar(tk.Toplevel):
         for row in range(2, 8):
             for col in range(7):
                 # Начинаются проблемы
-                self.but = tk.Button(self, text='0', width=4, height=2, activebackground='#555555',
-                                 font=('Verdana', 16, 'bold'), command=lambda : show_my_notes(self.get_btn_txt(self.but)))
+                self.but = tk.Button(self, text=col, width=4, height=2, activebackground='#555555',
+                                 font=('Verdana', 16, 'bold'))
+                get_btn_txt = partial(self.get_btn_txt, self.but)
+                self.but.config(command = lambda: show_my_notes(get_btn_txt()))
                 self.but.grid(row=row, column=col, sticky='nsew')
                 self.days.append(self.but)
-
+        print(get_btn_txt())
         self.fill()
 
     # Создаем календарь
@@ -107,7 +110,7 @@ class TheCalendar(tk.Toplevel):
     # Извлекаем текст с числом месяца из кнопки
     def get_btn_txt(self, but):
         button_text = but['text']
-        print(button_text)
+        # print(button_text)
         return button_text
 
 
