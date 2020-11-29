@@ -108,7 +108,7 @@ class TheCalendar(tk.Toplevel):
         button_text = but['text']
 
         if but['text'] > 21 and row <= 3 and self.info_label['text'].split(',')[0] == 'January':
-                return button_text, 12, int(self.info_label['text'].split(',')[1]) - 1
+            return button_text, 12, int(self.info_label['text'].split(',')[1]) - 1
         elif but['text'] < 15 and row >= 6 and self.info_label['text'].split(',')[0] == 'December':
             return button_text, 1, int(self.info_label['text'].split(',')[1]) + 1
         elif but['text'] > 21 and row <= 3:

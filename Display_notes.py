@@ -33,7 +33,8 @@ class DisplayNotes(tk.Toplevel):
     # Recording the data
     def record_the_note(self):
         date = str(self.day) + '.' + str(self.month) + '.' + str(self.year)
-        self.db.insert_data(self.text.get("0.0", "end-1c"), date)
+        print(self.text.get("0.0", "end-1c"))
+        self.db.insert_data_from_display_notes(self.text.get("0.0", "end-1c"), date)
         self.destroy()
 
 def show_my_notes(date_tuple):

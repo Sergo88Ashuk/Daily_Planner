@@ -2,6 +2,7 @@
 
 import sqlite3
 
+
 class DB():
     def __init__(self):
         self.conn = sqlite3.connect('my_notes.db')
@@ -10,16 +11,34 @@ class DB():
         self.conn.commit()
 
     # Вставка данных
-    def insert_data(self, notes, date):
+    def insert_data_from_display_notes(self, notes, date):
         self.cursor.execute('''SELECT date FROM the_notes''')
         self.all_dates = self.cursor.fetchone()
 
-        if date in self.all_dates:
+        if self.all_dates is None:
+            self.cursor.execute('''INSERT INTO the_notes (notes, date) VALUES(?, ?)''', (notes, date))
+            self.conn.commit()
+        elif date in self.all_dates:
             print("I'm here")
-            self.cursor.execute('''UPDATE the_notes SET notes = (?) WHERE date = (?)''', (notes, date))
+            self.cursor.execute('''DELETE FROM the_notes WHERE date = (?)''', (date,))
+            # self.cursor.execute('''UPDATE the_notes SET notes = (?) WHERE date = (?)''', (notes, date))
+            self.cursor.execute('''INSERT INTO the_notes (notes, date) VALUES(?, ?)''', (notes, date))
             self.conn.commit()
         else:
             print("Something has gone wrong")
+            self.cursor.execute('''INSERT INTO the_notes (notes, date) VALUES(?, ?)''', (notes, date))
+            self.conn.commit()
+
+        # Вставка данных
+    def insert_data_from_notes_widget(self, notes, date):
+        self.cursor.execute('''SELECT date FROM the_notes''')
+        self.all_dates = self.cursor.fetchone()
+
+        if self.all_dates is None:
+            self.cursor.execute('''INSERT INTO the_notes (notes, date) VALUES(?, ?)''', (notes, date))
+            self.conn.commit()
+        else:
+            print('Just trying')
             self.cursor.execute('''INSERT INTO the_notes (notes, date) VALUES(?, ?)''', (notes, date))
             self.conn.commit()
 
@@ -30,5 +49,3 @@ class DB():
         # Возвращает список кортежей
         my_notes = self.cursor.fetchall()
         return my_notes
-
-
