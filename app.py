@@ -10,12 +10,12 @@ from Notes_widget import show_notes_widget
 class MainMenu(tk.Frame):
     def __init__(self, parent,):
         super().__init__(parent)
-        self.init_main()
+        self.init_main(parent)
 
         # Configuring Frame object on the Main window
-    def init_main(self):
+    def init_main(self, parent):
         self.btn1 = tk.Button(text='Show my notes', width=20, height=3,
-                              command=lambda : Calendar.show_calendar(self.get_root_position()))
+                              command=lambda : Calendar.show_calendar(parent, self.get_root_position()))
         self.btn2 = tk.Button(text='Enter your notes', width=20, height=3,
                               command=lambda : show_notes_widget(self.get_root_position()))
 

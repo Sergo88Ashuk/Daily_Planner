@@ -119,11 +119,15 @@ class TheCalendar(tk.Toplevel):
             return button_text, self.month, self.year
 
 
+def dock(child, master):
+    w, h, x, y = re.split(r'[x+]', master.geometry())
+    x = int(x) + master.winfo_width()
+    child.geometry(f"+{x}+{y}")
 
-
-def show_calendar(coordinates):
+def show_calendar(dock_station, coordinates):
     width, height, x, y = coordinates
     calendar=TheCalendar(width, height, x, y)
+    dock_station.bind("<Configure>", lambda event: dock(calendar, dock_station))
     calendar.mainloop()
 
 # def get_root_position():
